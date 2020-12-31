@@ -1,0 +1,44 @@
+name: Build and Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: SnapRAID version
+        default: '11.5'
+        required: true
+
+jobs:
+  build_and_publish:
+    name: Build and Publish
+
+    runs-on: ubuntu-20.04
+
+    env:
+      SNAPRAID_VERSION: ${{ github.event.inputs.version }}
+      CONTAINER_TAG: ghcr.io/${{ github.repository }}:${{ github.event.inputs.version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Container
+        run: |
+          docker build . \
+            --tag ${CONTAINER_TAG}
+            --build-arg SNAPRAID_VERSION=${SNAPRAID_VERSION}
+            --build-arg revision=${{ github.sha }}
+        shell: bash
+
+      - name: Authenticate with GHCR
+        uses: docker/login-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      - name: Publish Container image
+        id: container_publish
+        run: |
+          docker push ${CONTAINER_TAG}
+        shell: bash
