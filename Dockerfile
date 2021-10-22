@@ -1,5 +1,5 @@
 ARG UBUNTU_TAG=20.04
-ARG SNAPRAID_VERSION=11.5
+ARG SNAPRAID_VERSION=11.6
 ARG revision=unknown
 ARG image_url=https://github.com/peter-murray/snapraid-container
 
