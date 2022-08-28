@@ -1,5 +1,5 @@
-ARG UBUNTU_TAG=20.04
-ARG SNAPRAID_VERSION=12.0
+ARG UBUNTU_TAG=22.04
+ARG SNAPRAID_VERSION=12.2
 ARG revision=unknown
 ARG image_url=https://github.com/peter-murray/snapraid-container
 
@@ -57,4 +57,4 @@ LABEL  org.opencontainers.image.authors="Peter Murray" \
     org.opencontainers.image.vendor="Peter Murray" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.title="SnapRAID Container" \
-    org.opencontainers.image.description="SnapRAID container for runnning SnapRAID under Ubuntu 20.04"
+    org.opencontainers.image.description="SnapRAID container for runnning SnapRAID under Ubuntu ${UBUNTU_TAG}"
